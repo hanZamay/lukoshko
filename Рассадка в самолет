@@ -1,0 +1,137 @@
+def superprint(f):
+    for i in f:
+        print(i)
+
+
+def giveseats(s):
+    global plain
+    s = list(s.split())
+    i = 0
+    if s[0] == '1':
+        if s[1] == 'left':
+            if s[2] == 'aisle':
+                for ss in plain:
+                    i += 1
+                    if ss[2] == '.':
+                        plain[i - 1] = ss[:2] + 'X' + ss[3:]
+                        print('Passengers can take seats: ', i, 'C', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[:2] + '#' + ss[3:]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+            else:
+                for ss in plain:
+                    i += 1
+                    if ss[0] == '.':
+                        plain[i - 1] = 'X' + ss[1:]
+                        print('Passengers can take seats: ', i, 'A', sep='')
+                        superprint(plain)
+                        plain[i - 1] = '#' + ss[1:]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+        else:
+            if s[2] == 'aisle':
+                for ss in plain:
+                    i += 1
+                    if ss[4] == '.':
+                        plain[i - 1] = ss[:4] + 'X' + ss[5:]
+                        print('Passengers can take seats: ', i, 'D', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[:4] + '#' + ss[5:]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+            else:
+                for ss in plain:
+                    i += 1
+                    if ss[-1] == '.':
+                        plain[i - 1] = ss[:-1] + 'X'
+                        print('Passengers can take seats: ', i, 'F', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[:-1] + '#'
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+    elif s[0] == '2':
+        if s[1] == 'left':
+            if s[2] == 'aisle':
+                for ss in plain:
+                    i += 1
+                    if ss[1] == '.' and ss[2] == '.':
+                        plain[i - 1] = ss[0] + 'XX' + ss[3:]
+                        print('Passengers can take seats: ', i, 'B ', i, 'C', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[0] + '##' + ss[3:]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+            else:
+                for ss in plain:
+                    i += 1
+                    if ss[0] == '.' and ss[1] == '.':
+                        plain[i - 1] = 'XX' + ss[2:]
+                        print('Passengers can take seats: ', i, 'A ', i, 'B', sep='')
+                        superprint(plain)
+                        plain[i - 1] = '##' + ss[2:]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+        else:
+            if s[2] == 'aisle':
+                for ss in plain:
+                    i += 1
+                    if ss[4] == '.' and ss[5] == '.':
+                        plain[i - 1] = ss[:4] + 'XX' + ss[-1]
+                        print('Passengers can take seats: ', i, 'D ', i, 'E', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[:4] + '##' + ss[-1]
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+            else:
+                for ss in plain:
+                    i += 1
+                    if ss[-2] == '.' and ss[-1] == '.':
+                        plain[i - 1] = ss[:-2] + 'XX'
+                        print('Passengers can take seats: ', i, 'E ', i, 'F', sep='')
+                        superprint(plain)
+                        plain[i - 1] = ss[:-2] + '##'
+                        return
+                print('Cannot fulfill passengers requirements')
+                return
+    else:
+        if s[1] == 'left':
+            for ss in plain:
+                i += 1
+                if ss[:3] == '...':
+                    plain[i - 1] = 'XXX' + ss[3:]
+                    print('Passengers can take seats: ', i, 'A ', i, 'B ', i, 'C', sep='')
+                    superprint(plain)
+                    plain[i - 1] = '###' + ss[3:]
+                    return
+            print('Cannot fulfill passengers requirements')
+            return
+        else:
+            for ss in plain:
+                i += 1
+                if ss[4:] == '...':
+                    plain[i - 1] = ss[:4] + 'XXX'
+                    print('Passengers can take seats: ', i, 'D ', i, 'E ', i, 'F', sep='')
+                    superprint(plain)
+                    plain[i - 1] = ss[:4] + '###'
+                    return
+            print('Cannot fulfill passengers requirements')
+            return
+
+
+n = int(input())
+plain = list()
+for j in range(n):
+    s = input()
+    plain.append(s)
+m = int(input())
+for j in range(m):
+    s = input()
+    giveseats(s)
